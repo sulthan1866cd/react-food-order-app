@@ -1,0 +1,32 @@
+.food-list {
+  .food-item-card {
+    background-color: antiquewhite;
+    margin: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 20px;
+    height: inherit;
+
+    img {
+      height: auto;
+      width: 90%;
+      padding: 25px;
+      border-radius: 50px;
+    }
+    button {
+      padding: 5px 20px;
+      margin: 5px;
+      height: 30px;
+      width: fit-content;
+      align-self: center;
+      background-color: beige;
+      border: 1px solid gray;
+    }
+    .quantity {
+      display: flex;
+      justify-content: space-evenly;
+    }
+  }
+}
