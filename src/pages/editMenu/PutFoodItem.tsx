@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
 import FoodItemForm from "./FoodItemForm";
 import { HttpUtils } from "../../utils/http.utils";
 import { type FoodItem } from "../../interface/foodItem.interface";
@@ -7,44 +7,61 @@ import { toast } from "react-toastify";
 import { Validator } from "../../utils/validator.utils";
 
 interface Props {
+  setFoodItems: Dispatch<SetStateAction<FoodItem[]>>;
   foodItem: FoodItem;
   onDelte: () => void;
 }
-const EditBtn = ({ foodItem, onDelte }: Props) => {
+// poor naming
+// bad code
+const EditBtn = ({ setFoodItems, foodItem, onDelte }: Props) => {
   const [isEditing, setEditing] = useState<boolean>(false);
 
   const [name, setName] = useState<string>(foodItem.name);
   const [price, setPrice] = useState<number>(foodItem.price);
-  const [image, setImage] = useState<string>(foodItem.image);
+  const [image, setImage] = useState<File|null>(null);
 
   const auth = useAuthContext();
   const authorization = auth?.authKey;
 
   const handleSubmit = async () => {
     setName(name.trim());
-    setImage(image.trim());
-    if (!Validator.isValidForm(name, price, image)) {
+    if (name === foodItem.name && price === foodItem.price && !image) {
+      toast.warning("No changes made");
+      return;
+    }
+    if (!Validator.isValidForm(name, price)) {
       toast.warning("Please fill in all fields");
       return;
     }
-    if (!Validator.isLink(image)) {
-      toast.warning("Image should be a link to image");
+    if (!Validator.isPositive(price)) {
+      toast.warning("price should be positive");
       return;
     }
-    await HttpUtils.put<FoodItem>(
+    if (image && !Validator.isImageFile(image)) {
+      toast.warning("Image should be a image file");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("id", foodItem.id);
+    formData.append("name", name);
+    formData.append("price", price + "");
+    formData.append("image", image ?? foodItem.image);
+    const result = await HttpUtils.put<FormData>(
       `food-items/${foodItem.id}`,
+      formData,
       {
-        id: foodItem.id,
-        name,
-        price,
-        image,
-      },
-      { authorization }
+        authorization,
+      }
+    );
+    if (!result.data) return;
+    setFoodItems((foodItems) =>
+      foodItems.map((food) => (food.id === foodItem.id ? result.data : food))
     );
     toast.success(`${foodItem.name} updated successfully`);
     setEditing(false);
+    setImage(null);
   };
-  
+
   return (
     <>
       {isEditing ? (
@@ -53,7 +70,6 @@ const EditBtn = ({ foodItem, onDelte }: Props) => {
           setName={setName}
           price={price}
           setPrice={setPrice}
-          image={image}
           setImage={setImage}
           handleSubmit={handleSubmit}
           onClose={() => setEditing(false)}

@@ -19,6 +19,7 @@ const AuthGuard = ({
       const result = await HttpUtils.get("auth/validate-token", {
         authorization: authKey,
       });
+      if (!result.data) return;
       const userRole = result.data.role;
       if (!requiredRoles || userRole === Role.ADMIN) return;
       if (!requiredRoles.find((role) => role === userRole)) {
@@ -36,7 +37,7 @@ const AuthGuard = ({
     }
     authUser();
   });
-  return children;
+  if (authKey) return children;
 };
 
 export default AuthGuard;

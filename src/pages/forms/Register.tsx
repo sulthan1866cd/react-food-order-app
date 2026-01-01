@@ -8,6 +8,9 @@ import { HttpUtils } from "../../utils/http.utils";
 import { Role } from "../../enum/role.enum";
 import { Validator } from "../../utils/validator.utils";
 
+//decreases repetition but adds confution
+// has 2 pages 
+// bad code
 const Register = ({ isAdmin }: { isAdmin?: boolean }) => {
   const [role, setRole] = useState(Role.CUSTOMER);
   const [username, setUsername] = useState("");
@@ -28,6 +31,10 @@ const Register = ({ isAdmin }: { isAdmin?: boolean }) => {
       toast.warning("Please fill in all fields");
       return;
     }
+    if (!Validator.isEmail(email)) {
+      toast.warning("email in wrong format");
+      return;
+    }
     const result = await HttpUtils.post<Omit<User, "id">>(
       isAdmin ? "admin/users" : "users",
       {
@@ -40,6 +47,7 @@ const Register = ({ isAdmin }: { isAdmin?: boolean }) => {
       { authorization }
     );
     if (isAdmin) return toast("added successfully");
+    if (!result.data) return;
     setAuthKey?.(result.data.authKey);
     setContextUsername?.(username);
     sessionStorage.setItem("username", username);

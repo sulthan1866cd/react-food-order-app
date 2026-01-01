@@ -5,7 +5,7 @@ import { useAuthContext } from "../../auth/AuthContext";
 import { toast } from "react-toastify";
 import FoodItemEditCard from "../../components/BaseFoodItemCard";
 import AddFoodItem from "./AddFoodItem";
-import EditBtn from "./FoodItemEditCard";
+import EditBtn from "./PutFoodItem";
 
 const EditMenu = () => {
   const [foodItems, setFoodItems] = useState<FoodItem[]>([]);
@@ -28,10 +28,9 @@ const EditMenu = () => {
     const result = await HttpUtils.delete<FoodItem>(`food-items/${id}`, {
       authorization,
     });
-    if (result.status === 200) {
-      if (result.data) toast.success("food item removed successfully!");
-      else toast.error("food item dosent exits!");
-    }
+    if (result.status === 200) toast.success("food item removed successfully!");
+    else toast.error("food item dosent exits!");
+
     setFoodItems(foodItems.filter((foodItem) => foodItem.id !== id));
   };
 
@@ -62,7 +61,11 @@ const EditMenu = () => {
           foodItems.map((foodItem, index) => {
             return (
               <FoodItemEditCard foodItem={foodItem} key={index}>
-                <EditBtn onDelte={()=>deleteFood(foodItem.id)} foodItem={foodItem}/>
+                <EditBtn
+                  setFoodItems={setFoodItems}
+                  onDelte={() => deleteFood(foodItem.id)}
+                  foodItem={foodItem}
+                />
               </FoodItemEditCard>
             );
           })

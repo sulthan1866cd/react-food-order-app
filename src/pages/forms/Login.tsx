@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./forms.scss";
 import { HttpUtils } from "../../utils/http.utils";
 import { Validator } from "../../utils/validator.utils";
+import { Role } from "../../enum/role.enum";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -25,11 +26,14 @@ const Login = () => {
       "auth",
       { username, password }
     );
-    setAuthKey?.(result.data);
+    if (!result.data) return;
+    setAuthKey?.(result.data.authorization);
     setContextUsername?.(username);
-    navigate("/menu");
+    console.log(result.data)
+    if (result.data.role === Role.CUSTOMER) navigate("/menu");
+    else navigate("/pages");
     sessionStorage.setItem("username", username);
-    sessionStorage.setItem("authKey", result.data || "");
+    sessionStorage.setItem("authKey", result.data.authorization || "");
   };
 
   return (

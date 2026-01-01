@@ -5,8 +5,7 @@ interface Props {
   setName: Dispatch<SetStateAction<string>>;
   price: number;
   setPrice: Dispatch<SetStateAction<number>>;
-  image: string;
-  setImage: Dispatch<SetStateAction<string>>;
+  setImage: Dispatch<SetStateAction<File | null>>;
 
   onClose: () => void;
   handleSubmit: () => void;
@@ -17,7 +16,6 @@ const FoodItemForm = ({
   setName,
   price,
   setPrice,
-  image,
   setImage,
   onClose,
   handleSubmit,
@@ -38,10 +36,9 @@ const FoodItemForm = ({
         onChange={(e) => setPrice(+e.currentTarget.value)}
       />
       <input
-        type="text"
+        type="file"
         placeholder="image link"
-        value={image}
-        onChange={(e) => setImage(e.currentTarget.value)}
+        onChange={(e) => setImage(e.currentTarget.files?.[0] ?? null)}
       />
       <button onClick={handleSubmit}>submit</button>
     </>

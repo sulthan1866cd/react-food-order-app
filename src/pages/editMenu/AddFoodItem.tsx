@@ -16,33 +16,36 @@ const AddFoodItem = ({ setFoodItems }: Props) => {
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
-  const [image, setImage] = useState<string>("");
+  const [image, setImage] = useState<File | null>(null);
 
   const handleSubmit = async () => {
     setName(name.trim());
-    setImage(image.trim());
-    if (!Validator.isValidForm(name, price, image)) {
+    if (!Validator.isValidForm(name, price)) {
       toast.warning("Please fill in all fields");
       return;
     }
-    if (!Validator.isLink(image)) {
-      toast.warning("Image should be a link to image");
+    if (!Validator.isPositive(price)) {
+      toast.warning("price should be positive");
       return;
     }
-    const result = await HttpUtils.post<Omit<FoodItem, "id">>(
-      "food-items",
-      {
-        name,
-        price,
-        image,
-      },
-      { authorization }
-    );
+    if (!Validator.isImageFile(image)) {
+      toast.warning("Image should be a image file");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("price", price + "");
+    formData.append("image", image as File);
+    const result = await HttpUtils.post<FormData>("food-items", formData, {
+      authorization,
+    });
+    if (!result.data) return;
     setFoodItems((foodItems) => [...foodItems, result.data]);
     setName("");
     setPrice(0);
-    setImage("");
+    setImage(null);
     setIsAdding(false);
+    toast.success("foodItem added successfully");
   };
   return (
     <div className="food-item-card">
@@ -53,7 +56,6 @@ const AddFoodItem = ({ setFoodItems }: Props) => {
             setName={setName}
             price={price}
             setPrice={setPrice}
-            image={image}
             setImage={setImage}
             onClose={() => setIsAdding(false)}
             handleSubmit={handleSubmit}

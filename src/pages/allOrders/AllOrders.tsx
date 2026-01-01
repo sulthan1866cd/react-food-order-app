@@ -5,7 +5,7 @@ import FoodItemCard from "../../components/BaseFoodItemCard";
 import { HttpUtils } from "../../utils/http.utils";
 import type { FoodItem } from "../../interface/foodItem.interface";
 
-const AllOrders = () => {
+const AllOrders = () => {// repeated MYOrders bad code
   const auth = useAuthContext();
   const username = auth?.username;
   const authorization = auth?.authKey;
@@ -31,6 +31,7 @@ const AllOrders = () => {
             <FoodItemCard key={index} foodItem={order.foodItem as FoodItem}>
               <p>customer: {order.username}</p>
               <p>quantity: {order.quantity}</p>
+              <p>total: ₹{order.quantity * order.foodItem.price}</p>
               <button onClick={() => completeOrder(order.id)}>complete</button>
             </FoodItemCard>
           ))

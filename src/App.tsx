@@ -10,6 +10,7 @@ import Register from "./pages/forms/Register";
 import EditMenu from "./pages/editMenu/EditMenu";
 import { Role } from "./enum/role.enum";
 import AllOrders from "./pages/allOrders/AllOrders";
+import Pages from "./pages/pages/Pages";
 
 function App() {
   return (
@@ -41,6 +42,14 @@ function App() {
               element={
                 <AuthGuard>
                   <MyOrders />
+                </AuthGuard>
+              }
+            />
+            <Route
+              path="/pages"
+              element={
+                <AuthGuard requiredRoles={[Role.CHEF, Role.ADMIN]}>
+                  <Pages />
                 </AuthGuard>
               }
             />

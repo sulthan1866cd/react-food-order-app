@@ -29,8 +29,8 @@ export class HttpUtils {
     path: string,
     body: T,
     { setter, authorization }: Options<T> = {}
-  ){
-     try {
+  ) {
+    try {
       const result = await axios.put(
         `${import.meta.env.VITE_BASE_API_URL}/${path}`,
         body,
@@ -53,7 +53,11 @@ export class HttpUtils {
       const result = await axios.post(
         `${import.meta.env.VITE_BASE_API_URL}/${path}`,
         body,
-        { headers: { authorization: `Bearer ${authorization}` } }
+        {
+          headers: {
+            authorization: `Bearer ${authorization}`,
+          },
+        }
       );
       setter?.(result.data);
       return result;
