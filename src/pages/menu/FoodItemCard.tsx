@@ -13,7 +13,7 @@ interface Props {
 const FoodItemCard = ({ foodItem }: Props) => {
   const auth = useAuthContext();
   const username = auth?.username ?? "";
-  const authorization = auth?.authKey;
+  const authorization = auth?.authorization;
   const [quantity, setQuantity] = useState<number>(1);
 
   const orderFood = async () => {

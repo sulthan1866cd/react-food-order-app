@@ -4,6 +4,7 @@ import FoodItemCard from "./FoodItemCard";
 import "./menu.scss";
 import { useNavigate } from "react-router-dom";
 import { HttpUtils } from "../../utils/http.utils";
+import { useAuthContext } from "../../auth/AuthContext";
 
 const Menu = () => {
   const [foodItems, setFoodItems] = useState<FoodItem[]>([]);
@@ -23,6 +24,7 @@ const Menu = () => {
 
   return (
     <div>
+      <h1>{useAuthContext()?.username}</h1>
       <h1>Menu</h1>
       <label>Search</label>
       <input

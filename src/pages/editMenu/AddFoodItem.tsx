@@ -11,7 +11,7 @@ interface Props {
 }
 const AddFoodItem = ({ setFoodItems }: Props) => {
   const auth = useAuthContext();
-  const authorization = auth?.authKey;
+  const authorization = auth?.authorization;
 
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [name, setName] = useState<string>("");

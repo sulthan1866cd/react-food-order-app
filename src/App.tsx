@@ -13,6 +13,7 @@ import AllOrders from "./pages/allOrders/AllOrders";
 import Pages from "./pages/pages/Pages";
 
 function App() {
+
   return (
     <>
       <AuthProvider>
@@ -69,6 +70,19 @@ function App() {
                 </AuthGuard>
               }
             />
+            {/* <Route
+              path="/:username"
+              element={
+                <div>
+                  {(() => {
+                    return JSON.stringify({
+                      username: auth?.username,
+                      auth: auth?.authorization,
+                    });
+                  })()}
+                </div>
+              }
+            /> */}
           </Routes>
         </BrowserRouter>
       </AuthProvider>

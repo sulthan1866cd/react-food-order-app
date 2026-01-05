@@ -12,12 +12,12 @@ const AuthGuard = ({
   children: ReactNode;
   requiredRoles?: Role[];
 }) => {
-  const authKey = useAuthContext()?.authKey;
+  const authorization = useAuthContext()?.authorization;
   const navigate = useNavigate();
   const authUser = async () => {
     try {
       const result = await HttpUtils.get("auth/validate-token", {
-        authorization: authKey,
+        authorization,
       });
       if (!result.data) return;
       const userRole = result.data.role;
@@ -31,13 +31,13 @@ const AuthGuard = ({
     }
   };
   useEffect(() => {
-    if (!authKey) {
+    if (!authorization) {
       navigate("/");
       return;
     }
     authUser();
   });
-  if (authKey) return children;
+  if (authorization) return children;
 };
 
 export default AuthGuard;

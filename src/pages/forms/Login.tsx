@@ -12,7 +12,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const authCotext = useAuthContext();
-  const setAuthKey = authCotext?.setAuthKey;
+  const setAuthorization = authCotext?.setAuthorization;
   const setContextUsername = authCotext?.setUsername;
   const navigate = useNavigate();
 
@@ -27,13 +27,13 @@ const Login = () => {
       { username, password }
     );
     if (!result.data) return;
-    setAuthKey?.(result.data.authorization);
+    setAuthorization?.(result.data.authorization);
     setContextUsername?.(username);
     console.log(result.data)
     if (result.data.role === Role.CUSTOMER) navigate("/menu");
     else navigate("/pages");
     sessionStorage.setItem("username", username);
-    sessionStorage.setItem("authKey", result.data.authorization || "");
+    sessionStorage.setItem("authorization", result.data.authorization || "");
   };
 
   return (

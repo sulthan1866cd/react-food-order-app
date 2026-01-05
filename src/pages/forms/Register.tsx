@@ -18,8 +18,8 @@ const Register = ({ isAdmin }: { isAdmin?: boolean }) => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const authCotext = useAuthContext();
-  const authorization = authCotext?.authKey;
-  const setAuthKey = authCotext?.setAuthKey;
+  const authorization = authCotext?.authorization;
+  const setAuthorization = authCotext?.setAuthorization;
   const setContextUsername = authCotext?.setUsername;
   const navigate = useNavigate();
 
@@ -48,10 +48,10 @@ const Register = ({ isAdmin }: { isAdmin?: boolean }) => {
     );
     if (isAdmin) return toast("added successfully");
     if (!result.data) return;
-    setAuthKey?.(result.data.authKey);
+    setAuthorization?.(result.data.authorization);
     setContextUsername?.(username);
     sessionStorage.setItem("username", username);
-    sessionStorage.setItem("authKey", result.data.authKey || "");
+    sessionStorage.setItem("authorization", result.data.authorization || "");
     navigate("/menu");
   };
   return (

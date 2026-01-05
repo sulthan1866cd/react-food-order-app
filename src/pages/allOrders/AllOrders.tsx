@@ -8,7 +8,7 @@ import type { FoodItem } from "../../interface/foodItem.interface";
 const AllOrders = () => {// repeated MYOrders bad code
   const auth = useAuthContext();
   const username = auth?.username;
-  const authorization = auth?.authKey;
+  const authorization = auth?.authorization;
   const [orders, setOrders] = useState<Order[]>([]);
   useEffect(() => {
     HttpUtils.get<Order[]>(`orders`, {

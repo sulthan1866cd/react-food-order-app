@@ -9,7 +9,7 @@ import type { FoodItem } from "../../interface/foodItem.interface";
 const MyOrders = () => {
   const auth = useAuthContext();
   const username = auth?.username;
-  const authorization = auth?.authKey;
+  const authorization = auth?.authorization;
   const [orders, setOrders] = useState<Order[]>([]);
   const navigate = useNavigate();
   useEffect(() => {

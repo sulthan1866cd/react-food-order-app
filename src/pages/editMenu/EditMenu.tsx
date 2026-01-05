@@ -15,7 +15,7 @@ const EditMenu = () => {
     max: string;
   }>({ min: "", max: "" });
   const auth = useAuthContext();
-  const authorization = auth?.authKey;
+  const authorization = auth?.authorization;
 
   useEffect(() => {
     HttpUtils.get<FoodItem[]>(
