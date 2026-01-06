@@ -11,9 +11,9 @@ import EditMenu from "./pages/editMenu/EditMenu";
 import { Role } from "./enum/role.enum";
 import AllOrders from "./pages/allOrders/AllOrders";
 import Pages from "./pages/pages/Pages";
+import Profile from "./pages/profile/Profile";
 
 function App() {
-
   return (
     <>
       <AuthProvider>
@@ -70,19 +70,22 @@ function App() {
                 </AuthGuard>
               }
             />
-            {/* <Route
+            <Route
               path="/:username"
               element={
-                <div>
-                  {(() => {
-                    return JSON.stringify({
-                      username: auth?.username,
-                      auth: auth?.authorization,
-                    });
-                  })()}
-                </div>
+                <AuthGuard>
+                  <Profile role={Role.CUSTOMER} />
+                </AuthGuard>
               }
-            /> */}
+            />
+            <Route
+              path="admin/:username"
+              element={
+                <AuthGuard requiredRoles={[Role.CHEF]}>
+                  <Profile role={Role.CHEF} />
+                </AuthGuard>
+              }
+            />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

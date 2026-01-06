@@ -22,7 +22,7 @@ export class HttpUtils {
     } catch (error) {
       toast.error(`Error fetching data! on path /${path} => ${error}`);
     }
-    return {} as Promise<AxiosResponse>;
+    return {} as AxiosResponse;
   }
 
   static async put<T>(
@@ -41,7 +41,7 @@ export class HttpUtils {
     } catch (error) {
       toast.error(`Error puting data! on path /${path} => ${error}`);
     }
-    return {} as Promise<AxiosResponse>;
+    return {} as AxiosResponse;
   }
 
   static async post<T>(
@@ -64,7 +64,7 @@ export class HttpUtils {
     } catch (error) {
       toast.error(`Error posting data! on path /${path} => ${error}`);
     }
-    return {} as Promise<AxiosResponse>;
+    return {} as AxiosResponse;
   }
 
   static async delete<T>(
@@ -81,6 +81,6 @@ export class HttpUtils {
     } catch (error) {
       toast.error(`Error deleting data! on path /${path} => ${error}`);
     }
-    return {} as Promise<AxiosResponse>;
+    return {} as AxiosResponse;
   }
 }
