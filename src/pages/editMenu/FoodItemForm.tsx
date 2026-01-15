@@ -21,27 +21,48 @@ const FoodItemForm = ({
   handleSubmit,
 }: Props) => {
   return (
-    <>
-      <button onClick={onClose}>X</button>
-      <input
-        type="text"
-        placeholder="name"
-        value={name}
-        onChange={(e) => setName(e.currentTarget.value)}
-      />
-      <input
-        type="number"
-        placeholder="price"
-        value={price}
-        onChange={(e) => setPrice(+e.currentTarget.value)}
-      />
-      <input
-        type="file"
-        placeholder="image link"
-        onChange={(e) => setImage(e.currentTarget.files?.[0] ?? null)}
-      />
-      <button onClick={handleSubmit}>submit</button>
-    </>
+    <div className="food-item-form">
+      <div className="form-header">
+        <h3 className="form-title">Add Food Item</h3>
+        <button className="close-btn" onClick={onClose}>×</button>
+      </div>
+      
+      <div className="form-group">
+        <label htmlFor="name">Name</label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Enter food name"
+          value={name}
+          onChange={(e) => setName(e.currentTarget.value)}
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="price">Price (₹)</label>
+        <input
+          id="price"
+          type="number"
+          placeholder="Enter price"
+          value={price}
+          onChange={(e) => setPrice(+e.currentTarget.value)}
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="image">Image</label>
+        <input
+          id="image"
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImage(e.currentTarget.files?.[0] ?? null)}
+        />
+      </div>
+
+      <div className="form-actions">
+        <button className="submit-btn" onClick={handleSubmit}>Add Item</button>
+      </div>
+    </div>
   );
 };
 

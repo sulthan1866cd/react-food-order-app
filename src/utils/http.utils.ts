@@ -13,7 +13,7 @@ export class HttpUtils {
     { setter, authorization }: Options<T> = {}
   ) {
     try {
-      const result = await axios.get(
+      const result = await axios.get<T>(
         `${import.meta.env.VITE_BASE_API_URL}/${path}`,
         { headers: { authorization: `Bearer ${authorization}` } }
       );
@@ -27,11 +27,11 @@ export class HttpUtils {
 
   static async put<T>(
     path: string,
-    body: T,
+    body: Partial<T>,
     { setter, authorization }: Options<T> = {}
   ) {
     try {
-      const result = await axios.put(
+      const result = await axios.put<T>(
         `${import.meta.env.VITE_BASE_API_URL}/${path}`,
         body,
         { headers: { authorization: `Bearer ${authorization}` } }
@@ -50,7 +50,7 @@ export class HttpUtils {
     { setter, authorization }: Options<T> = {}
   ) {
     try {
-      const result = await axios.post(
+      const result = await axios.post<T>(
         `${import.meta.env.VITE_BASE_API_URL}/${path}`,
         body,
         {
@@ -72,7 +72,7 @@ export class HttpUtils {
     { setter, authorization }: Options<T> = {}
   ) {
     try {
-      const result = await axios.delete(
+      const result = await axios.delete<T>(
         `${import.meta.env.VITE_BASE_API_URL}/${path}`,
         { headers: { authorization: `Bearer ${authorization}` } }
       );

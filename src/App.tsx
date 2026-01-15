@@ -12,6 +12,7 @@ import { Role } from "./enum/role.enum";
 import AllOrders from "./pages/allOrders/AllOrders";
 import Pages from "./pages/pages/Pages";
 import Profile from "./pages/profile/Profile";
+import EditProfile from "./pages/profile/EditProfile";
 
 function App() {
   return (
@@ -46,14 +47,7 @@ function App() {
                 </AuthGuard>
               }
             />
-            <Route
-              path="/pages"
-              element={
-                <AuthGuard requiredRoles={[Role.CHEF, Role.ADMIN]}>
-                  <Pages />
-                </AuthGuard>
-              }
-            />
+            <Route path="/pages" element={<Pages />} />
             <Route
               path="/edit-menu"
               element={
@@ -74,15 +68,15 @@ function App() {
               path="/:username"
               element={
                 <AuthGuard>
-                  <Profile role={Role.CUSTOMER} />
+                  <Profile  />
                 </AuthGuard>
               }
             />
             <Route
-              path="admin/:username"
+              path="/:username/edit"
               element={
-                <AuthGuard requiredRoles={[Role.CHEF]}>
-                  <Profile role={Role.CHEF} />
+                <AuthGuard>
+                  <EditProfile />
                 </AuthGuard>
               }
             />

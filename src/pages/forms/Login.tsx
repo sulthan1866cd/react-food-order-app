@@ -6,7 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "./forms.scss";
 import { HttpUtils } from "../../utils/http.utils";
 import { Validator } from "../../utils/validator.utils";
-import { Role } from "../../enum/role.enum";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -14,6 +13,7 @@ const Login = () => {
   const authCotext = useAuthContext();
   const setAuthorization = authCotext?.setAuthorization;
   const setContextUsername = authCotext?.setUsername;
+  const setRole = authCotext?.setRole;
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -29,32 +29,42 @@ const Login = () => {
     if (!result.data) return;
     setAuthorization?.(result.data.authorization);
     setContextUsername?.(username);
-    console.log(result.data)
-    if (result.data.role === Role.CUSTOMER) navigate("/menu");
-    else navigate("/pages");
+    setRole?.(result.data.role);
     sessionStorage.setItem("username", username);
     sessionStorage.setItem("authorization", result.data.authorization || "");
+    sessionStorage.setItem("role", result.data.role || "");
+    navigate("/pages");
   };
 
   return (
-    <div className="login-page">
-      <h1>LOG IN </h1>
-      <input
-        type="text"
-        placeholder="username or email"
-        value={username}
-        onChange={(e) => setUsername(e.currentTarget.value)}
-      />
-      <input
-        type="password"
-        placeholder="password"
-        value={password}
-        onChange={(e) => setPassword(e.currentTarget.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
-      <p>
-        no account yet? <Link to="/register">register</Link>
-      </p>
+    <div className="auth-container">
+      <div className="auth-card">
+        <h1>Log In</h1>
+        <div className="form-group">
+          <label>Username or Email</label>
+          <input
+            type="text"
+            placeholder="Enter your username or email"
+            value={username}
+            onChange={(e) => setUsername(e.currentTarget.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.currentTarget.value)}
+          />
+        </div>
+        <button onClick={handleLogin}>Login</button>
+        <div className="auth-footer">
+          <p>
+            Don't have an account? <Link to="/register">Register</Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

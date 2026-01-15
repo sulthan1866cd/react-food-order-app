@@ -34,18 +34,30 @@ const FoodItemCard = ({ foodItem }: Props) => {
 
   return (
     <BaseFoodItemCard foodItem={foodItem}>
-      <div className="quantity">
+      <div className="quantity-controls">
         <button
+          className="quantity-btn decrease"
           onClick={() =>
             setQuantity(() => (quantity === 1 ? quantity : quantity - 1))
           }
+          disabled={quantity === 1}
         >
-          -
+          −
         </button>
-        <p>quantity: {quantity}</p>
-        <button onClick={() => setQuantity(quantity + 1)}>+</button>{" "}
+        <div className="quantity-display">
+          <span className="quantity-label">Qty</span>
+          <span className="quantity-value">{quantity}</span>
+        </div>
+        <button
+          className="quantity-btn increase"
+          onClick={() => setQuantity(quantity + 1)}
+        >
+          +
+        </button>
       </div>
-      <button onClick={orderFood}>order</button>
+      <button className="order-btn" onClick={orderFood}>
+        <span>🛒</span> Add to Order
+      </button>
     </BaseFoodItemCard>
   );
 };

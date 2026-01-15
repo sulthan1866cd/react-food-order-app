@@ -8,10 +8,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [authorization, setAuthorization] = useState(
     sessionStorage.getItem("authorization") || ""
   );
+  const [role, setRole] = useState(
+    sessionStorage.getItem("role") || ""
+  );
 
   return (
     <AuthContext.Provider
-      value={{ username, setUsername, authorization, setAuthorization }}
+      value={{ username, setUsername, authorization, setAuthorization, role, setRole }}
     >
       {children}
     </AuthContext.Provider>

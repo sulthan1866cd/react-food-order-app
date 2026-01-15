@@ -1,0 +1,104 @@
+.pages-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+
+  h1 {
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .pages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+
+    .page-link-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      text-align: center;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        border-color: #667eea;
+
+        a {
+          color: #764ba2;
+        }
+
+        &::before {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+        opacity: 0;
+      }
+
+      a {
+        text-decoration: none;
+        color: #333;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-transform: capitalize;
+        transition: color 0.3s ease;
+        display: block;
+        letter-spacing: 0.5px;
+
+        &::after {
+          content: ' →';
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          margin-left: 5px;
+        }
+      }
+
+      &:hover a::after {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .pages-container {
+    padding: 1rem;
+    margin: 1rem auto;
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .pages-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+}

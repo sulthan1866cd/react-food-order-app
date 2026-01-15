@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import FoodItemEditCard from "../../components/BaseFoodItemCard";
 import AddFoodItem from "./AddFoodItem";
 import EditBtn from "./PutFoodItem";
+import "../menu/menu.scss";
 
 const EditMenu = () => {
   const [foodItems, setFoodItems] = useState<FoodItem[]>([]);
@@ -35,28 +36,49 @@ const EditMenu = () => {
   };
 
   return (
-    <div>
-      <h1>Menu</h1>
-      <label>Search</label>
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.currentTarget.value)}
-      />
-      <select
-        onChange={(e) => {
-          const [min, max] = e.currentTarget.value.split(" - ");
-          setPriceRange({ min, max });
-        }}
-      >
-        <option value=""> price range</option>
-        <option>0 - 50</option>
-        <option>50 - 80</option>
-        <option>80 - 150</option>
-      </select>
+    <div className="container">
+      <div className="header">
+        <div className="header-content">
+          <h1 className="title">Edit Menu</h1>
+          <p className="welcome-text">Manage your food items</p>
+        </div>
+      </div>
+
+      <div className="filters-section">
+        <div className="search-wrapper">
+          <label className="filter-label">Search</label>
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search for food items..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.currentTarget.value)}
+          />
+        </div>
+        <div className="price-filter-wrapper">
+          <label className="filter-label">Price Range</label>
+          <select
+            className="price-select"
+            onChange={(e) => {
+              const [min, max] = e.currentTarget.value.split(" - ");
+              setPriceRange({ min, max });
+            }}
+          >
+            <option value="">All prices</option>
+            <option>0 - 50</option>
+            <option>50 - 80</option>
+            <option>80 - 150</option>
+          </select>
+        </div>
+      </div>
+
       <div className="food-list">
         {foodItems.length == 0 ? (
-          <>no items found</>
+          <div className="no-results">
+            <span className="no-results-icon">🍽️</span>
+            <p>No items found</p>
+            <p className="no-results-hint">Try adjusting your filters</p>
+          </div>
         ) : (
           foodItems.map((foodItem, index) => {
             return (

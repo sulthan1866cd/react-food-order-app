@@ -76,8 +76,8 @@ const EditBtn = ({ setFoodItems, foodItem, onDelte }: Props) => {
         />
       ) : (
         <>
-          <button onClick={() => setEditing(true)}>edit</button>
-          <button onClick={onDelte}>delete</button>
+          <button className="order-btn" onClick={() => setEditing(true)}>edit</button>
+          <button className="order-btn" onClick={onDelte}>delete</button>
         </>
       )}
     </>

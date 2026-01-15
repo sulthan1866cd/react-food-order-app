@@ -48,21 +48,19 @@ const AddFoodItem = ({ setFoodItems }: Props) => {
     toast.success("foodItem added successfully");
   };
   return (
-    <div className="food-item-card">
+    <div className={`food-item-card ${!isAdding ? 'add-card' : ''}`}>
       {isAdding ? (
-        <>
-          <FoodItemForm
-            name={name}
-            setName={setName}
-            price={price}
-            setPrice={setPrice}
-            setImage={setImage}
-            onClose={() => setIsAdding(false)}
-            handleSubmit={handleSubmit}
-          />
-        </>
+        <FoodItemForm
+          name={name}
+          setName={setName}
+          price={price}
+          setPrice={setPrice}
+          setImage={setImage}
+          onClose={() => setIsAdding(false)}
+          handleSubmit={handleSubmit}
+        />
       ) : (
-        <button onClick={() => setIsAdding(true)}>+</button>
+        <button className="add-btn" onClick={() => setIsAdding(true)}>+</button>
       )}
     </div>
   );

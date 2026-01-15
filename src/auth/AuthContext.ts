@@ -2,6 +2,8 @@ import { createContext, useContext, type Dispatch, type SetStateAction } from "r
 interface AuthType {
   username: string;
   setUsername: Dispatch<SetStateAction<string>>;
+  role: string;
+  setRole: Dispatch<SetStateAction<string>>;
   authorization: string;
   setAuthorization: Dispatch<SetStateAction<string>>;
 }

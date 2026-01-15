@@ -6,11 +6,12 @@ import { Role } from "../../enum/role.enum";
 import { useNavigate, useParams } from "react-router-dom";
 import "./profile.scss";
 
-const Profile = ({ role }: { role: Role }) => {
+const Profile = () => {
   const auth = useAuthContext();
   const { username } = useParams<{ username: string }>();
   const authUsername = auth?.username;
   const authorization = auth?.authorization;
+  const role = auth?.role;
   const navigate = useNavigate();
   const [user, SetUser] = useState<User>({
     email: "",
@@ -21,7 +22,10 @@ const Profile = ({ role }: { role: Role }) => {
     username: "",
   });
   useEffect(() => {
-    if (authUsername !== username) navigate("/");
+    if (authUsername !== username) {
+      navigate("/");
+      return;
+    }
   }, [authUsername, username, navigate]);
 
   useEffect(() => {
@@ -33,8 +37,8 @@ const Profile = ({ role }: { role: Role }) => {
     );
   }, [role, authUsername, authorization]);
   return (
-    <>
-      <h1>{user.role} Details</h1>
+    <div className="profile-container">
+      <h1>{user.role} Profile</h1>
       <div className="profile-card">
         {Object.keys(user || {}).map((key) => (
           <div key={key}>
@@ -42,7 +46,7 @@ const Profile = ({ role }: { role: Role }) => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 export default Profile;

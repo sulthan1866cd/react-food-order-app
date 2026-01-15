@@ -10,11 +10,18 @@ const BaseFoodItemCard = ({ foodItem, children }: Props) => {
 
 
   return (
-    <div>
-      <div className="food-item-card">
-        <h1>{foodItem.name}</h1>
-        <img src={foodItem.image} />
-        <h3>Price: ₹{foodItem.price}</h3>
+    <div className="food-item-card">
+      <div className="food-image-container">
+        <img src={foodItem.image} alt={foodItem.name} className="food-image" />
+      </div>
+      <div className="food-details">
+        <h2 className="food-name">{foodItem.name}</h2>
+        <div className="food-price">
+          <span className="price-label">Price:</span>
+          <span className="price-value">₹{foodItem.price}</span>
+        </div>
+      </div>
+      <div className="food-actions">
         {children}
       </div>
     </div>
