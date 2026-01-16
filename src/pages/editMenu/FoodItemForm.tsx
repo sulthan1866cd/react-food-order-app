@@ -60,7 +60,7 @@ const FoodItemForm = ({
       </div>
 
       <div className="form-actions">
-        <button className="submit-btn" onClick={handleSubmit}>Add Item</button>
+        <button className="submit-btn" onClick={handleSubmit}>submit</button>
       </div>
     </div>
   );
