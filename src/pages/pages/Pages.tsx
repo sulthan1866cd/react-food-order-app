@@ -4,9 +4,7 @@ import "./pages.scss";
 import { Role } from "../../enum/role.enum";
 
 const Pages = () => {
-  const auth = useAuthContext();
-  const username = auth?.username;
-  const role = auth?.role;
+  const { username, role } = useAuthContext()!;
 
   return (
     <div className="pages-container">

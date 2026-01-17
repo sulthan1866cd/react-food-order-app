@@ -27,7 +27,6 @@ export class Validator {
   static isImageFile(input: unknown): boolean {
     // bad code
     if (typeof input !== "object") return false;
-    // if (!Object.keys(input as object).includes("name")) return false;
     const imageName = (input as File).name;
     return [".png", ".jpg", ".jpeg"].some((exe) => imageName.endsWith(exe));
   }

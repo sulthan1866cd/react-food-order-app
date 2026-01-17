@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { useAuthContext } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
 import { HttpUtils } from "../utils/http.utils";
@@ -12,7 +12,8 @@ const AuthGuard = ({
   children: ReactNode;
   requiredRoles?: Role[];
 }) => {
-  const authorization = useAuthContext()?.authorization;
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+  const { authorization } = useAuthContext()!;
   const navigate = useNavigate();
   const authUser = async () => {
     try {
@@ -21,10 +22,14 @@ const AuthGuard = ({
       });
       if (!result.data) return;
       const userRole = result.data.role;
-      if (!requiredRoles || userRole === Role.ADMIN) return;
+      if (!requiredRoles || userRole === Role.ADMIN) {
+        setIsAuthorized(true);
+        return;
+      }
       if (!requiredRoles.find((role) => role === userRole)) {
         throw new Error("permission denided");
       }
+      setIsAuthorized(true);
     } catch (error) {
       toast(`${error}`);
       navigate("/");
@@ -36,8 +41,8 @@ const AuthGuard = ({
       return;
     }
     authUser();
-  });
-  if (authorization) return children;
+  }, []);
+  return <>{isAuthorized ? children :  <h1>Loading...</h1>}</>;
 };
 
 export default AuthGuard;

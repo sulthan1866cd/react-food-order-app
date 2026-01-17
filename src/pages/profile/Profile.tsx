@@ -7,11 +7,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./profile.scss";
 
 const Profile = () => {
-  const auth = useAuthContext();
+  const { username: authUsername, authorization, role } = useAuthContext()!;
   const { username } = useParams<{ username: string }>();
-  const authUsername = auth?.username;
-  const authorization = auth?.authorization;
-  const role = auth?.role;
   const navigate = useNavigate();
   const [user, SetUser] = useState<User>({
     email: "",

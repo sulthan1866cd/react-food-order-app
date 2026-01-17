@@ -2,22 +2,34 @@ import { useState } from "react";
 import { HttpUtils } from "../../utils/http.utils";
 import { useAuthContext } from "../../auth/AuthContext";
 import { type User } from "../../interface/user.interface";
+import { Validator } from "../../utils/validator.utils";
+import { toast } from "react-toastify";
 
 const EditProfile = () => {
-  const auth = useAuthContext();
-  const username = auth?.username;
-  const authorization = auth?.authorization;
+  const { username, authorization } = useAuthContext()!;
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
 
   const handleChangePassword = () => {
+    if(!Validator.isValidForm(password)) {
+      toast.warning("Password cannot be empty");
+      return;
+    }
     HttpUtils.put<User>(`users/${username}`, { password }, { authorization });
   };
   const handleSubmit = () => {
+    if(!Validator.isValidForm(fullName, email)) {
+      toast.warning("Please fill in all fields");
+      return;
+    }
+    if(!Validator.isEmail(email)) {
+      toast.warning("email in wrong format");
+      return;
+    }
     HttpUtils.put<User>(
       `users/${username}`,
-      { email, password },
+      { email, fullName },
       { authorization }
     );
   };

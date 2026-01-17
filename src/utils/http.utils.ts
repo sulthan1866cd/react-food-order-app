@@ -18,6 +18,7 @@ export class HttpUtils {
         { headers: { authorization: `Bearer ${authorization}` } }
       );
       setter?.(result.data);
+      toast.success(`Data fetched successfully from /${path}`);
       return result;
     } catch (error) {
       toast.error(`Error fetching data! on path /${path} => ${error}`);
@@ -37,6 +38,7 @@ export class HttpUtils {
         { headers: { authorization: `Bearer ${authorization}` } }
       );
       setter?.(result.data);
+      toast.success(`Data put successfully to /${path}`);
       return result;
     } catch (error) {
       toast.error(`Error puting data! on path /${path} => ${error}`);
@@ -60,6 +62,7 @@ export class HttpUtils {
         }
       );
       setter?.(result.data);
+      toast.success(`Data posted successfully to /${path}`);
       return result;
     } catch (error) {
       toast.error(`Error posting data! on path /${path} => ${error}`);
@@ -77,6 +80,7 @@ export class HttpUtils {
         { headers: { authorization: `Bearer ${authorization}` } }
       );
       setter?.(result.data);
+      toast.success(`Data deleted successfully from /${path}`);
       return result;
     } catch (error) {
       toast.error(`Error deleting data! on path /${path} => ${error}`);

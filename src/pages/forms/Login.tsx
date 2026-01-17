@@ -10,10 +10,11 @@ import { Validator } from "../../utils/validator.utils";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const authCotext = useAuthContext();
-  const setAuthorization = authCotext?.setAuthorization;
-  const setContextUsername = authCotext?.setUsername;
-  const setRole = authCotext?.setRole;
+  const {
+    setAuthorization,
+    setUsername: setContextUsername,
+    setRole,
+  } = useAuthContext()!;
   const navigate = useNavigate();
 
   const handleLogin = async () => {

@@ -7,7 +7,7 @@ import { HttpUtils } from "../../utils/http.utils";
 import { useAuthContext } from "../../auth/AuthContext";
 
 const Menu = () => {
-  const username = useAuthContext()?.username;
+  const { username } = useAuthContext()!;
   const [foodItems, setFoodItems] = useState<FoodItem[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [priceRange, setPriceRange] = useState<{

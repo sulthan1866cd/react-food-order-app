@@ -10,8 +10,7 @@ interface Props {
   setFoodItems: Dispatch<SetStateAction<FoodItem[]>>;
 }
 const AddFoodItem = ({ setFoodItems }: Props) => {
-  const auth = useAuthContext();
-  const authorization = auth?.authorization;
+  const { authorization } = useAuthContext()!;
 
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [name, setName] = useState<string>("");

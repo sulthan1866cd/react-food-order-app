@@ -17,11 +17,12 @@ const Register = ({ isAdmin }: { isAdmin?: boolean }) => {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const authCotext = useAuthContext();
-  const authorization = authCotext?.authorization;
-  const setAuthorization = authCotext?.setAuthorization;
-  const setContextUsername = authCotext?.setUsername;
-  const setContextRole = authCotext?.setRole;
+  const {
+    authorization,
+    setAuthorization,
+    setUsername: setContextUsername,
+    setRole: setContextRole,
+  } = useAuthContext()!;
   const navigate = useNavigate();
 
   const handleRegister = async () => {

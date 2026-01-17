@@ -7,9 +7,7 @@ import { useNavigate } from "react-router-dom";
 import type { FoodItem } from "../../interface/foodItem.interface";
 
 const MyOrders = () => {
-  const auth = useAuthContext();
-  const username = auth?.username;
-  const authorization = auth?.authorization;
+  const { username, authorization } = useAuthContext()!;
   const [orders, setOrders] = useState<Order[]>([]);
   const navigate = useNavigate();
   useEffect(() => {

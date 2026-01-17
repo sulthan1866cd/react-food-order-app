@@ -8,9 +8,7 @@ import "../menu/menu.scss";
 
 const AllOrders = () => {
   // repeated MYOrders bad code
-  const auth = useAuthContext();
-  const username = auth?.username;
-  const authorization = auth?.authorization;
+  const { username, authorization } = useAuthContext()!;
   const [orders, setOrders] = useState<Order[]>([]);
   useEffect(() => {
     HttpUtils.get<Order[]>(`orders`, {

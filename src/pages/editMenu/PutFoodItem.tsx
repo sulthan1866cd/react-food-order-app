@@ -20,8 +20,7 @@ const EditBtn = ({ setFoodItems, foodItem, onDelte }: Props) => {
   const [price, setPrice] = useState<number>(foodItem.price);
   const [image, setImage] = useState<File|null>(null);
 
-  const auth = useAuthContext();
-  const authorization = auth?.authorization;
+  const { authorization } = useAuthContext()!;
 
   const handleSubmit = async () => {
     setName(name.trim());
