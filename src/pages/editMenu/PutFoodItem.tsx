@@ -18,7 +18,7 @@ const EditBtn = ({ setFoodItems, foodItem, onDelte }: Props) => {
 
   const [name, setName] = useState<string>(foodItem.name);
   const [price, setPrice] = useState<number>(foodItem.price);
-  const [image, setImage] = useState<File|null>(null);
+  const [image, setImage] = useState<File | null>(null);
 
   const { authorization } = useAuthContext()!;
 
@@ -50,15 +50,15 @@ const EditBtn = ({ setFoodItems, foodItem, onDelte }: Props) => {
       formData,
       {
         authorization,
-      }
+      },
     );
-    if (!result.data) return;
-    setFoodItems((foodItems) =>
-      foodItems.map((food) => (food.id === foodItem.id ? result.data : food))
-    );
-    toast.success(`${foodItem.name} updated successfully`);
     setEditing(false);
     setImage(null);
+    if (!result.data) return;
+    setFoodItems((foodItems) =>
+      foodItems.map((food) => (food.id === foodItem.id ? result.data : food)),
+    );
+    toast.success(`${foodItem.name} updated successfully`);
   };
 
   return (
@@ -75,8 +75,12 @@ const EditBtn = ({ setFoodItems, foodItem, onDelte }: Props) => {
         />
       ) : (
         <>
-          <button className="order-btn" onClick={() => setEditing(true)}>edit</button>
-          <button className="order-btn" onClick={onDelte}>delete</button>
+          <button className="order-btn" onClick={() => setEditing(true)}>
+            edit
+          </button>
+          <button className="order-btn" onClick={onDelte}>
+            delete
+          </button>
         </>
       )}
     </>

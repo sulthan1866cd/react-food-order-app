@@ -10,12 +10,12 @@ interface Options<T> {
 export class HttpUtils {
   static async get<T>(
     path: string,
-    { setter, authorization }: Options<T> = {}
+    { setter, authorization }: Options<T> = {},
   ) {
     try {
       const result = await axios.get<T>(
         `${import.meta.env.VITE_BASE_API_URL}/${path}`,
-        { headers: { authorization: `Bearer ${authorization}` } }
+        { headers: { authorization: `Bearer ${authorization}` } },
       );
       setter?.(result.data);
       toast.success(`Data fetched successfully from /${path}`);
@@ -29,13 +29,13 @@ export class HttpUtils {
   static async put<T>(
     path: string,
     body: Partial<T>,
-    { setter, authorization }: Options<T> = {}
+    { setter, authorization }: Options<T> = {},
   ) {
     try {
       const result = await axios.put<T>(
         `${import.meta.env.VITE_BASE_API_URL}/${path}`,
         body,
-        { headers: { authorization: `Bearer ${authorization}` } }
+        { headers: { authorization: `Bearer ${authorization}` } },
       );
       setter?.(result.data);
       toast.success(`Data put successfully to /${path}`);
@@ -49,7 +49,7 @@ export class HttpUtils {
   static async post<T>(
     path: string,
     body: T,
-    { setter, authorization }: Options<T> = {}
+    { setter, authorization }: Options<T> = {},
   ) {
     try {
       const result = await axios.post<T>(
@@ -59,7 +59,7 @@ export class HttpUtils {
           headers: {
             authorization: `Bearer ${authorization}`,
           },
-        }
+        },
       );
       setter?.(result.data);
       toast.success(`Data posted successfully to /${path}`);
@@ -72,12 +72,12 @@ export class HttpUtils {
 
   static async delete<T>(
     path: string,
-    { setter, authorization }: Options<T> = {}
+    { setter, authorization }: Options<T> = {},
   ) {
     try {
       const result = await axios.delete<T>(
         `${import.meta.env.VITE_BASE_API_URL}/${path}`,
-        { headers: { authorization: `Bearer ${authorization}` } }
+        { headers: { authorization: `Bearer ${authorization}` } },
       );
       setter?.(result.data);
       toast.success(`Data deleted successfully from /${path}`);

@@ -37,7 +37,7 @@ const Profile = () => {
     <div className="profile-container">
       <h1>{user.role} Profile</h1>
       <div className="profile-card">
-        {Object.keys(user || {}).map((key) => (
+        {Object.keys(user).map((key) => (
           <div key={key}>
             <span>{key + " : " + user[key as keyof User]}</span>
           </div>

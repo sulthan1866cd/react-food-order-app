@@ -13,9 +13,9 @@ const Pages = () => {
         <>
           <h1>Admin paths</h1>
           <div className="pages-grid">
-            <div className="page-link-card">
-              <Link to="/admin-register">Admin Register</Link>
-            </div>
+            <Link to="/admin-register">
+              <div className="page-link-card">Admin Register</div>
+            </Link>
           </div>
         </>
       )}
@@ -23,35 +23,35 @@ const Pages = () => {
         <>
           <h1>Chef Paths</h1>
           <div className="pages-grid">
-            <div className="page-link-card">
-              <Link to="/edit-menu">Edit Menu</Link>
-            </div>
-            <div className="page-link-card">
-              <Link to="/all-orders">All Orders</Link>
-            </div>
+            <Link to="/edit-menu">
+              <div className="page-link-card">Edit Menu</div>
+            </Link>
+            <Link to="/all-orders">
+              <div className="page-link-card">All Orders</div>
+            </Link>
           </div>
           <h1>Customer Paths</h1>
         </>
       )}
       <div className="pages-grid">
-        <div className="page-link-card">
-          <Link to="/register">Register</Link>
-        </div>
-        <div className="page-link-card">
-          <Link to="/menu">Menu</Link>
-        </div>
-        <div className="page-link-card">
-          <Link to="/my-orders">My Orders</Link>
-        </div>
-        <div className="page-link-card">
-          <Link to={`/${username}`}>Profile</Link>
-        </div>
-        <div className="page-link-card">
-          <Link to={`/${username}/edit`}>Edit Profile</Link>
-        </div>
-        <div className="page-link-card">
-          <Link to={`/`}>login</Link>
-        </div>
+        <Link to="/register">
+          <div className="page-link-card">Register</div>
+        </Link>
+        <Link to="/menu">
+          <div className="page-link-card">Menu</div>
+        </Link>
+        <Link to="/my-orders">
+          <div className="page-link-card">My Orders</div>
+        </Link>
+        <Link to={`/${username}`}>
+          <div className="page-link-card">Profile</div>
+        </Link>
+        <Link to={`/${username}/edit`}>
+          <div className="page-link-card">Edit Profile</div>
+        </Link>
+        <Link to={`/`}>
+          <div className="page-link-card">login</div>
+        </Link>
       </div>
     </div>
   );
